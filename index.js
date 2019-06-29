@@ -14,10 +14,15 @@ const server = http.createServer((req, res) => {
   const id = url.parse(req.url, true).query.id;
 
   // Render all Products
-  if (pathName === '/products') {
+  if (pathName === '/products' || pathName === '/') {
     res.writeHead(200, { 'Content-type': 'text/html' });
     fs.readFile(`${__dirname}/products.html`, 'utf-8', (err, data) => {
-      res.end(data);
+      let overviewOutput = data;
+      fs.readFile(`${__dirname}/cards.html`, 'utf-8', (err, data) => {
+        const cardOutput = laptopData.map(laptop => replaceData(data, laptop)).join('');
+        overviewOutput = overviewOutput.replace('%%CARDS%%', cardOutput);
+        res.end(overviewOutput)
+      })
     })
   }
   // Render the detail of the selected laptop
