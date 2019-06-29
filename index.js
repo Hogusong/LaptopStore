@@ -45,15 +45,15 @@ const server = http.createServer((req, res) => {
 });
 
 function replaceData(originHtml, laptop) {
-  let output = originHtml.replace(/%PRODUCTNAME%/, laptop.productName);
-  output = output.replace(/%PRICE%/, laptop.price);
-  output = output.replace(/%IMAGE%/, laptop.image);
-  output = output.replace(/%SCREEN%/, laptop.screen);
-  output = output.replace(/%CPU%/, laptop.cpu);
-  output = output.replace(/%STORAGE%/, laptop.storage);
-  output = output.replace(/%RAM%/, laptop.ram);
-  output = output.replace(/%DESCRIPTION%/, laptop.description);
-  output = output.replace(/%ID%/, laptop.id);
+  let output = originHtml.replace(/%PRODUCTNAME%/g, laptop.productName);
+  output = output.replace(/%PRICE%/g, laptop.price);
+  output = output.replace(/%IMAGE%/g, laptop.image);
+  output = output.replace(/%SCREEN%/g, laptop.screen);
+  output = output.replace(/%CPU%/g, laptop.cpu);
+  output = output.replace(/%STORAGE%/g, laptop.storage);
+  output = output.replace(/%RAM%/g, laptop.ram);
+  output = output.replace(/%DESCRIPTION%/g, laptop.description);
+  output = output.replace(/%ID%/g, laptop.id);
   return output;
 }
 
