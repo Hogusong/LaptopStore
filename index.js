@@ -24,6 +24,7 @@ const server = http.createServer((req, res) => {
   else if (pathName === '/laptop' && id < laptopData.length) {
     res.writeHead(200, { 'Content-type': 'text/html' });
     fs.readFile(`${__dirname}/laptop.html`, 'utf-8', (err, data) => {
+      const output = replaceData(data, laptopData[id]);
       res.end(data);
     })
   }
@@ -37,6 +38,19 @@ const server = http.createServer((req, res) => {
   // res.end('First message to test comunication.' + '  path = ' + pathName + ',  id = ' + id);
 
 });
+
+function replaceData(originHtml, laptop) {
+  let output = originHtml.replace(/%PRODUCTNAME%/, laptop.productName);
+  output = output.replace(/%PRICE%/, laptop.price);
+  output = output.replace(/%IMAGE%/, laptop.image);
+  output = output.replace(/%SCREEN%/, laptop.screen);
+  output = output.replace(/%CPU%/, laptop.cpu);
+  output = output.replace(/%STORAGE%/, laptop.storage);
+  output = output.replace(/%RAM%/, laptop.ram);
+  output = output.replace(/%DESCRIPTION%/, laptop.description);
+  output = output.replace(/%ID%/, laptop.id);
+  return output;
+}
 
 server.listen(1337, '127.0.0.1', () => {
   console.log('listening for requests ...')
