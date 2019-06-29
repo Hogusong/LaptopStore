@@ -13,8 +13,28 @@ const server = http.createServer((req, res) => {
   // Parse url and get id from query
   const id = url.parse(req.url, true).query.id;
 
-  res.writeHead(200, { 'Content-type': 'text/html' });
-  res.end('First message to test comunication.' + '  path = ' + pathName + ',  id = ' + id);
+  // Render all Products
+  if (pathName === '/products') {
+    res.writeHead(200, { 'Content-type': 'text/html' });
+    fs.readFile(`${__dirname}/products.html`, 'utf-8', (err, data) => {
+      res.end(data);
+    })
+  }
+  // Render the detail of the selected laptop
+  else if (pathName === '/laptop' && id < laptopData.length) {
+    res.writeHead(200, { 'Content-type': 'text/html' });
+    fs.readFile(`${__dirname}/laptop.html`, 'utf-8', (err, data) => {
+      res.end(data);
+    })
+  }
+  // url not found
+  else {
+    res.writeHead(200, { 'Content-type': 'text/html' });
+    res.end(`url ${pathName} was not found on the server`);
+  }
+
+  // res.writeHead(200, { 'Content-type': 'text/html' });
+  // res.end('First message to test comunication.' + '  path = ' + pathName + ',  id = ' + id);
 
 });
 
