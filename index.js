@@ -33,6 +33,13 @@ const server = http.createServer((req, res) => {
       res.end(output);
     })
   }
+  // Load images
+  else if ((/\.(jpg|jpeg|png|gif)$/i).test(pathName)) {
+    fs.readFile(`${__dirname}/data/img${pathName}`, (err, data) => {
+      res.writeHead(200, { 'Content-type': 'image/jpg' });
+      res.end(data);
+    })
+  }
   // url not found
   else {
     res.writeHead(200, { 'Content-type': 'text/html' });
